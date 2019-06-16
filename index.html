@@ -64,17 +64,26 @@ canvas {
             if(this.y2+this.radius2>500||this.y2<50+this.radius2)
             {
                 this.velocityy=-this.velocityy; 
+                
+            }
+            else
+            {
+                this.velocityy+=gravity;
+              
             }
             if(this.x2+this.radius2>500||this.x2<0+this.radius2)
             {
                 this.velocityx=-this.velocityx;
+                
             }
-            this.x2+=this.velocityx;
-            this.y2+=this.velocityy;
             this.draw();
+             this.x2+=this.velocityx;
+            this.y2+=this.velocityy;
         }
     }
     var p=0;
+
+    var gravity=0.1;
 
     var totalscore=0; //total score of game
 
@@ -96,7 +105,7 @@ canvas {
 
     b=450;  //y coordinate of canon
     bulletArray[0]=(new bullet(x1,y1,dx,dy,radius1));
-    stoneArray[0]=(new stone(60,100,0.8,1.2,60));
+    stoneArray[0]=(new stone(60,100,0.8,0,60));
 
 // defining function for distance between stone and bullet
     function distance(x1,x2,y1,y2)
@@ -112,7 +121,7 @@ canvas {
         x2=0;
         y2=integer(2,4)*40;
         velocityx=integer(5,9)*0.2;
-        velocityy=1.9;
+        velocityy=0;
         radius2=integer(40,60);
         var z=radius2;
         if(integer(4,20)%2==0)
@@ -126,6 +135,9 @@ canvas {
     {
         return Math.floor(Math.random()*(int2-int1+1)+int1);
     }
+
+
+
 
 // function for animation
     function animation()
@@ -183,7 +195,7 @@ canvas {
                 {
                 stoneArray[i].radius2-=0.5; //disappearing stone
                 totalscore+=1;
-                stoneArray[i].update();
+                stoneArray[i].draw();
                 bulletArray[j].radius1=0; //disappearing bullet
                 
                 if(stoneArray[i].radius2==10)
@@ -192,7 +204,7 @@ canvas {
             if(stoneArray[i].radius2==0)
                 break;
                 }
-            if(stoneArray[i].radius2>0)
+             if(stoneArray[i].radius2>0)   
             stoneArray[i].update();
         }
        
@@ -201,7 +213,7 @@ canvas {
             {
             p+=4000;
             setTimeout(pushstone,p);
-            if(distance(a+25,stoneArray[i].x2,b+25,stoneArray[i].y2)<stoneArray[i].radius2+31)
+            if(distance(a+25,stoneArray[i].x2,b+25,stoneArray[i].y2)<stoneArray[i].radius2+28)
                 {
                 window.cancelAnimationFrame(cancel);
                 c.font="30px verdana";
@@ -209,6 +221,7 @@ canvas {
                 document.onkeydown="";
                 }
             }
+         
     }
 
 // calling animation function
