@@ -56,7 +56,18 @@ canvas {
             c.beginPath();
             c.arc(this.x2,this.y2,this.radius2,0,Math.PI*2,false);
             c.fill();
-            c.strokeStyle="blue";
+            c.strokeStyle="black";
+            c.stroke();
+            c.beginPath();
+            var p=this.radius2;
+            c.font="20px verdana";
+            c.fillStyle="yellow";
+            if(this.radius2%1==0)
+            c.fillText(this.radius2,this.x2-10,this.y2+10);
+            if(this.radius2%1!=0)
+            {
+                c.fillText(this.radius2-0.5,this.x2-10,this.y2+10);
+            }
             c.stroke();
         }
         this.update=function()
@@ -87,6 +98,8 @@ canvas {
 
     var totalscore=0; //total score of game
 
+    var highscore=0;
+
     var bulletArray=[];
 
     var stoneArray=[];
@@ -105,7 +118,7 @@ canvas {
 
     b=450;  //y coordinate of canon
     bulletArray[0]=(new bullet(x1,y1,dx,dy,radius1));
-    stoneArray[0]=(new stone(60,100,0.8,0,60));
+    stoneArray[0]=(new stone(60,100,0.8,0.3,60));
 
 // defining function for distance between stone and bullet
     function distance(x1,x2,y1,y2)
@@ -168,14 +181,11 @@ canvas {
     //updating the canon after movement
        canvas.width=canvas.width;
        c.rect(a,b,50,50);
-       c.fill();
+       c.fillStyle="black";
        c.stroke();
         }
         document.onkeydown=move;
 
-       //displaying  total score
-        c.font="30px Verdana";
-        c.fillText("Score:"+totalscore,330,50);
       
         //adding new bullet to bag
         for(var i=0;i<bulletArray.length;i++)
@@ -198,7 +208,7 @@ canvas {
                 stoneArray[i].draw();
                 bulletArray[j].radius1=0; //disappearing bullet
                 
-                if(stoneArray[i].radius2==10)
+                if(stoneArray[i].radius2==15)
                     stoneArray[i].radius2=0;
                 }
             if(stoneArray[i].radius2==0)
@@ -207,6 +217,11 @@ canvas {
              if(stoneArray[i].radius2>0)   
             stoneArray[i].update();
         }
+
+           //displaying  total score
+        c.font="30px Verdana";
+        c.fillStyle="black";
+        c.fillText("Score:"+totalscore,330,50);
        
         //pushing stone at equal time interval of 4 seconds
         for(var i=0;i<stoneArray.length;i++)
@@ -216,8 +231,18 @@ canvas {
             if(distance(a+25,stoneArray[i].x2,b+25,stoneArray[i].y2)<stoneArray[i].radius2+28)
                 {
                 window.cancelAnimationFrame(cancel);
-                c.font="30px verdana";
-                c.fillText("GAME OVER",150,250);
+                if(totalscore>localStorage.highscore)
+                localStorage.setItem("highscore",totalscore); 
+                c.beginPath();
+                c.rect(110,160,250,200);
+                c.fill();
+                c.strokeStyle="red";
+                c.fillStyle="yellow";
+                c.font="20px verdana";
+                c.fillText("!!!GAME OVER!!!",150,220)
+                c.fillText("YOUR SCORE:"+totalscore,150,260);
+                c.fillText("HIGH SCORE:"+localStorage.highscore,150,300);
+                c.stroke();
                 document.onkeydown="";
                 }
             }
