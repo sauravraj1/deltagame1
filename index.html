@@ -232,7 +232,7 @@ canvas {
                 {
                 window.cancelAnimationFrame(cancel);
                 if(totalscore>sessionStorage.highscore)
-                localStorage.setItem("highscore",totalscore); 
+                sessionStorage.setItem("highscore",totalscore); 
                 c.beginPath();
                 c.rect(110,160,250,200);
                 c.fill();
