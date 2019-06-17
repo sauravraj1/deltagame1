@@ -55,13 +55,12 @@ canvas {
         {
             c.beginPath();
             c.arc(this.x2,this.y2,this.radius2,0,Math.PI*2,false);
-            c.fill();
             c.strokeStyle="black";
             c.stroke();
             c.beginPath();
             var p=this.radius2;
             c.font="20px verdana";
-            c.fillStyle="yellow";
+            c.fillStyle="white";
             if(this.radius2%1==0)
             c.fillText(this.radius2,this.x2-10,this.y2+10);
             if(this.radius2%1!=0)
