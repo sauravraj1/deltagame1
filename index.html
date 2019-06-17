@@ -231,8 +231,8 @@ canvas {
             if(distance(a+25,stoneArray[i].x2,b+25,stoneArray[i].y2)<stoneArray[i].radius2+28)
                 {
                 window.cancelAnimationFrame(cancel);
-                if(totalscore>sessionStorage.highscore)
-                sessionStorage.setItem("highscore",totalscore); 
+                if(totalscore>localStorage.highscore)
+                localStorage.setItem("highscore",totalscore); 
                 c.beginPath();
                 c.rect(110,160,250,200);
                 c.fill();
@@ -241,7 +241,7 @@ canvas {
                 c.font="20px verdana";
                 c.fillText("!!!GAME OVER!!!",150,220)
                 c.fillText("YOUR SCORE:"+totalscore,150,260);
-                c.fillText("HIGH SCORE:"+sessionStorage.highscore,150,300);
+                c.fillText("HIGH SCORE:"+localStorage.highscore,150,300);
                 c.stroke();
                 document.onkeydown="";
                 }
